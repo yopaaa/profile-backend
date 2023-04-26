@@ -1,0 +1,38 @@
+GET http://localhost:8080/visitors/yopaaa
+
+
+###
+POST http://localhost:8080/visitors/yopaaa
+Content-Type: application/json
+
+{
+   "ua":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+   "browser":{
+      "name":"Chrome",
+      "version":"112.0.0.0",
+      "major":"112"
+   },
+   "engine":{
+      "name":"Blink",
+      "version":"112.0.0.0"
+   },
+   "os":{
+      "name":"Linux",
+      "version":"x86_64"
+   },
+   "device":{
+      "vendor":"undefined",
+      "model":"undefined",
+      "type":"undefined"
+   },
+   "cpu":{
+      "architecture":"amd64"
+   },
+   "visitor":{
+      "ip":"::1",
+      "error":true,
+      "reason":"Reserved IP Address",
+      "reserved":true,
+      "version":"IPv6"
+   }
+}
