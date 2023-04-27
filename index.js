@@ -9,26 +9,29 @@ import LogASCIIText from "./js/ASCIIArt.js";
 import ResponseApi from "./js/ResponseApi.js";
 import log from "./js/log.js";
 
-const app = express();
 const { MAIN_PORT, WHITE_LIST_CORS, FRONT_END_PATH, NODE_ENV } = process.env;
-const origin = function (origin, callback) {
-  if (NODE_ENV == "development") {
-    callback(null, true);
-    return;
-  }
-  console.log(origin);
+const app = express();
+const whitelist = WHITE_LIST_CORS.split(",");
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (NODE_ENV == "development") {
+      callback(null, true);
+      return;
+    }
 
-  if (WHITE_LIST_CORS.includes(origin)) {
-    callback(null, true);
-  } else {
-    callback(new Error("Not allowed by CORS"), false);
-  }
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
 };
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cors({ origin, credentials: true }));
+app.use(cors(corsOptions));
 
 // app.use("/pw_v1", authentication, pw_v1);
 app.use("/visitors", Visitors);
@@ -43,7 +46,6 @@ app.all("/ping", async (req, res) => {
 
 app.use((err, req, res, next) => {
   const { message } = err;
-  log(`${req.ip} access ${req.originalUrl} ${message}`, 503, req.method);
   ResponseApi(req, res, 503, {}, [message]);
 });
 

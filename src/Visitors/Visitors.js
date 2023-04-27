@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 
 const visitor = express.Router();
 
-visitor.get("/:user", async (req, res) => {
+visitor.get("/:user/count", async (req, res) => {
   const { user } = req.params;
   const isValid = user in users;
 
@@ -18,7 +18,7 @@ visitor.get("/:user", async (req, res) => {
   ResponseApi(req, res, 400);
 });
 
-visitor.post("/:user", async (req, res) => {
+visitor.post("/:user/new", async (req, res) => {
   const { ua, browser, engine, os, device, cpu, visitor } = req.body;
   const { user } = req.params;
   const isValid =
