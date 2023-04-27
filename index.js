@@ -1,18 +1,14 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-<<<<<<< HEAD
-import "dotenv/config";
 
 import Visitors from "./src/Visitors/Visitors.js";
 import LogASCIIText from "./js/ASCIIArt.js";
 import ResponseApi from "./js/ResponseApi.js";
-=======
 import Visitors from "./src/Visitors/Visitors.js";
 import LogASCIIText from "./js/ASCIIArt.js";
 import ResponseApi from "./js/ResponseApi.js";
 import "dotenv/config";
->>>>>>> 5bbf20b (test)
 
 const { MAIN_PORT } = process.env;
 const app = express();
