@@ -14,7 +14,7 @@ const app = express();
 const whitelist = WHITE_LIST_CORS.split(",");
 const corsOptions = {
   origin: function (origin, callback) {
-    if (NODE_ENV == "development") {
+    if (NODE_ENV == "development" || origin == undefined) {
       callback(null, true);
       return;
     }
