@@ -5,7 +5,6 @@ import bodyParser from "body-parser";
 import Visitors from "./src/Visitors/Visitors.js";
 import LogASCIIText from "./js/ASCIIArt.js";
 import ResponseApi from "./js/ResponseApi.js";
-import Visitors from "./src/Visitors/Visitors.js";
 import "dotenv/config";
 
 const { MAIN_PORT } = process.env;
