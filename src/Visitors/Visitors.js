@@ -1,31 +1,30 @@
-import express from "express";
-import ResponseApi from "../../js/ResponseApi.js";
-import { users } from "./database.js";
-import { nanoid } from "nanoid";
+import express from 'express'
+import ResponseApi from '../../js/ResponseApi.js'
+import { users } from './database.js'
+import { nanoid } from 'nanoid'
 
-const visitor = express.Router();
+const visitor = express.Router()
 
-visitor.get("/:user/count", async (req, res) => {
-  const { user } = req.params;
-  const isValid = user in users;
+visitor.get('/:user/count', async (req, res) => {
+  const { user } = req.params
+  const isValid = user in users
 
   if (isValid) {
-    const pw = users[user];
-    const data = await pw.Db.count();
-    ResponseApi(req, res, 200, { count: data });
-    return;
+    const pw = users[user]
+    const data = await pw.Db.count()
+    ResponseApi(req, res, 200, { count: data })
+    return
   }
-  ResponseApi(req, res, 400);
-});
+  ResponseApi(req, res, 400)
+})
 
-visitor.post("/:user/new", async (req, res) => {
-  const { ua, browser, engine, os, device, cpu, visitor } = req.body;
-  const { user } = req.params;
-  const isValid =
-    user in users && ua && browser && engine && os && device && cpu && visitor;
+visitor.post('/:user/new', async (req, res) => {
+  const { ua, browser, engine, os, device, cpu, visitor } = req.body
+  const { user } = req.params
+  const isValid = user in users && ua && browser && engine && os && device && cpu && visitor
 
   if (isValid) {
-    const pw = users[user];
+    const pw = users[user]
 
     const data = await pw.insertOne({
       _id: nanoid(),
@@ -35,12 +34,12 @@ visitor.post("/:user/new", async (req, res) => {
       os,
       device,
       cpu,
-      visitor,
-    });
-    ResponseApi(req, res, 200, data);
-    return;
+      visitor
+    })
+    ResponseApi(req, res, 200, data)
+    return
   }
-  ResponseApi(req, res, 400);
-});
+  ResponseApi(req, res, 400)
+})
 
-export default visitor;
+export default visitor
