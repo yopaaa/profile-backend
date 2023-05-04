@@ -2,9 +2,10 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
-import Visitors from './src/Visitors/Visitors.js'
+import Visitors from './src/Visitors.js'
 import LogASCIIText from './js/ASCIIArt.js'
 import ResponseApi from './js/ResponseApi.js'
+import apiKeyMiddleware from './src/apiKeyMiddleware.js'
 import 'dotenv/config'
 
 const { MAIN_PORT } = process.env
@@ -15,7 +16,7 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 
 // app.use("/pw_v1", authentication, pw_v1);
-app.use('/visitors', Visitors)
+app.use('/visitors', apiKeyMiddleware, Visitors)
 
 app.all('/', async (req, res) => {
   ResponseApi(req, res, 200)

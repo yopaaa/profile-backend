@@ -1,5 +1,5 @@
 import express from 'express'
-import ResponseApi from '../../js/ResponseApi.js'
+import ResponseApi from '../js/ResponseApi.js'
 import { users } from './database.js'
 import { nanoid } from 'nanoid'
 
@@ -10,7 +10,7 @@ visitor.get('/:user/count', async (req, res) => {
   const isValid = user in users
 
   if (isValid) {
-    const pw = users[user]
+    const pw = users[user].visitors
     const data = await pw.Db.count()
     ResponseApi(req, res, 200, { count: data })
     return
@@ -24,7 +24,7 @@ visitor.post('/:user/new', async (req, res) => {
   const isValid = user in users && ua && browser && engine && os && device && cpu && visitor
 
   if (isValid) {
-    const pw = users[user]
+    const pw = users[user].visitors
 
     const data = await pw.insertOne({
       _id: nanoid(),

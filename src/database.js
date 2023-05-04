@@ -1,70 +1,4 @@
-import Database from '../../js/dbMethod.js'
-
-/*
-{
-  "_id": "A0QeW4cQ0YseEmn0Up-OT",
-  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-  "browser": {
-    "name": "Chrome",
-    "version": "112.0.0.0",
-    "major": "112"
-  },
-  "engine": {
-    "name": "Blink",
-    "version": "112.0.0.0"
-  },
-  "os": {
-    "name": "Linux",
-    "version": "x86_64"
-  },
-  "cpu": {
-    "architecture": "amd64"
-  },
-  "visitor": {
-    "ip": "36.77.113.85",
-    "network": "36.77.112.0/21",
-    "version": "IPv4",
-    "city": "Bandung",
-    "region": "West Java",
-    "region_code": "JB",
-    "country": "ID",
-    "country_name": "Indonesia",
-    "country_code": "ID",
-    "country_code_iso3": "IDN",
-    "country_capital": "Jakarta",
-    "country_tld": ".id",
-    "continent_code": "AS",
-    "in_eu": false,
-    "postal": null,
-    "latitude": -6.9217,
-    "longitude": 107.6071,
-    "timezone": "Asia/Jakarta",
-    "utc_offset": "+0700",
-    "country_calling_code": "+62",
-    "currency": "IDR",
-    "currency_name": "Rupiah",
-    "languages": "id,en,nl,jv",
-    "country_area": 1919440,
-    "country_population": 267663435,
-    "asn": "AS7713",
-    "org": "PT Telekomunikasi Indonesia"
-  },
-}
-*/
-// const schema = {
-//   ua: String,
-//   browser: { type: Object, default: {} },
-//   engine: Object,
-//   os: Object,
-//   device: Object,
-//   cpu: {
-//     type: {
-//       architecture: "amd64",
-//     },
-//   },
-//   _id: String,
-//   visitor: Object,
-// };
+import Database from '../js/dbMethod.js'
 
 const schema = {
   _id: String,
@@ -214,7 +148,7 @@ const schema = {
   }
 }
 const users = {
-  yopaaa: new Database('visitors-yopaaa', schema)
+  yopaaa: { visitors: new Database('visitors-yopaaa', schema) }
 }
 
 export { schema, users }
