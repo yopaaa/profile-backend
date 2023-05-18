@@ -1,6 +1,6 @@
 import Database from '../js/dbMethod.js'
 
-const schema = {
+const visitorsSchema = {
   _id: String,
   ua: {
     type: String,
@@ -147,8 +147,74 @@ const schema = {
     }
   }
 }
-const users = {
-  yopaaa: { visitors: new Database('visitors-yopaaa', schema) }
+
+const dataSchema = {
+  _id: String,
+  name: String,
+  des: String,
+  address: String,
+  work: String,
+  email: String,
+  githubUsername: String,
+  link: [
+    {
+      name: String,
+      link: String,
+      img: String
+    }
+  ],
+  Certificate: [
+    {
+      name: String,
+      title: String,
+      des: String,
+      img: String,
+      date: String,
+      link: String
+    }
+  ],
+  skills: [
+    {
+      name: String,
+      link: String,
+      img: String
+    }
+  ],
+  experience: [
+    {
+      company: String,
+      position: String,
+      startDate: String,
+      endDate: String,
+      description: String
+    }
+  ],
+  blog: [
+    {
+      name: String,
+      title: String,
+      des: String,
+      img: String,
+      date: String,
+      link: String
+    }
+  ],
+  morePage: [
+    {
+      name: String,
+      title: String,
+      des: String,
+      img: String,
+      link: String
+    }
+  ]
 }
 
-export { schema, users }
+const users = {
+  yopaaa: {
+    visitors: new Database('visitors-yopaaa', visitorsSchema),
+    data: new Database('profile-data', dataSchema)
+  }
+}
+
+export { visitorsSchema, users }

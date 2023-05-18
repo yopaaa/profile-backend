@@ -21,7 +21,6 @@ function apiKeyMiddleware(req, res, next) {
   }
 
   quotaData.remaining--
-  console.log(quotaData)
   next()
 }
 
