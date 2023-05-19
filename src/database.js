@@ -156,7 +156,7 @@ const dataSchema = {
   work: String,
   email: String,
   githubUsername: String,
-  link: [
+  Link: [
     {
       name: String,
       link: String,
@@ -173,14 +173,14 @@ const dataSchema = {
       link: String
     }
   ],
-  skills: [
+  Skills: [
     {
       name: String,
       link: String,
       img: String
     }
   ],
-  experience: [
+  Experience: [
     {
       company: String,
       position: String,
@@ -189,22 +189,13 @@ const dataSchema = {
       description: String
     }
   ],
-  blog: [
+  Blog: [
     {
       name: String,
       title: String,
       des: String,
       img: String,
       date: String,
-      link: String
-    }
-  ],
-  morePage: [
-    {
-      name: String,
-      title: String,
-      des: String,
-      img: String,
       link: String
     }
   ]

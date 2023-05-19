@@ -9,7 +9,7 @@ const visitor = express.Router()
 
 visitor.get('/:user', async (req, res) => {
   const { user } = req.params
-  const { name, des, address, work, email, githubUsername, link, Certificate, skills, experience, blog, morePage } = req.query
+  const { name, des, address, work, email, githubUsername, Link, Certificate, Skills, Experience, Blog } = req.query
   const specificQuery = {
     _id: 0,
     name: name === '1' ? 1 : undefined,
@@ -18,12 +18,11 @@ visitor.get('/:user', async (req, res) => {
     work: work === '1' ? 1 : undefined,
     email: email === '1' ? 1 : undefined,
     githubUsername: githubUsername === '1' ? 1 : undefined,
-    link: link === '1' ? 1 : undefined,
+    Link: Link === '1' ? 1 : undefined,
     Certificate: Certificate === '1' ? 1 : undefined,
-    skills: skills === '1' ? 1 : undefined,
-    experience: experience === '1' ? 1 : undefined,
-    blog: blog === '1' ? 1 : undefined,
-    morePage: morePage === '1' ? 1 : undefined
+    Skills: Skills === '1' ? 1 : undefined,
+    Experience: Experience === '1' ? 1 : undefined,
+    Blog: Blog === '1' ? 1 : undefined
   }
   Object.keys(specificQuery).forEach((key) => {
     if (specificQuery[key] === undefined) {
