@@ -36,3 +36,15 @@ Content-Type: application/json
       "version":"IPv6"
    }
 }
+
+
+###
+POST http://localhost:8080/variable/test
+Content-Type: application/json
+
+{
+"value": "ap"
+}
+
+###
+GET http://localhost:8080/variable/test

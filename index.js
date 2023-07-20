@@ -26,6 +26,19 @@ app.all('/ping', async (req, res) => {
   ResponseApi(req, res, 200, { msg: 'pong' })
 })
 
+const variable = {}
+app.post('/variable/:key', (req, res) => {
+  const { key } = req.params
+  const { value } = req.body
+
+  variable[key] = value
+  ResponseApi(req, res, 200, { data: variable[key] || null })
+})
+app.get('/variable/:key', (req, res) => {
+  const { key } = req.params
+  ResponseApi(req, res, 200, { data: variable[key] || null })
+})
+
 app.use((err, req, res, next) => {
   const { message } = err
   ResponseApi(req, res, 503, {}, [message])
