@@ -1,11 +1,10 @@
-import log from "./log.js"
-import mongoose from "mongoose"
-import "dotenv/config"
+import log from './log.js'
+import mongoose from 'mongoose'
+import 'dotenv/config'
 
-const { MONGODB_USER_NAME, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_DATABASE } =
-  process.env
+const { MONGODB_USER_NAME, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_DATABASE } = process.env
 // const mongoPath = `mongodb://${MONGODB_USER_NAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DATABASE}`
-const mongoPath = `mongodb+srv://${MONGODB_USER_NAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DATABASE}`;
+const mongoPath = `mongodb+srv://${MONGODB_USER_NAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DATABASE}`
 
 mongoose
   .connect(mongoPath, {
@@ -13,15 +12,15 @@ mongoose
     useUnifiedTopology: true
   })
   .then(() => {
-    log("Connected to MongoDB", 200)
+    log('Connected to MongoDB', 200)
   })
   .catch((err) => {
     log(err, 500)
   })
-mongoose.set("autoIndex", true)
+mongoose.set('autoIndex', true)
 
 class Database {
-  constructor(collections = "", schema = { _id: String }, index = null) {
+  constructor(collections = '', schema = { _id: String }, index = null) {
     const dbSchema = new mongoose.Schema(schema, {
       timestamps: true
     })
