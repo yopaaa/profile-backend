@@ -1,8 +1,24 @@
-GET http://localhost:8080/visitors/yopaaa
 
+// test get full data
+###
+GET http://localhost:8080/visitors/yopaaas
+
+
+// test get data
+###
+GET http://localhost:8080/visitors/yopaaas?name=1
+
+// test put data
+###
+PUT http://localhost:8080/visitors/yopaaa/data
+Content-Type: application/json
+
+{
+   "Certificate": "yopaaa"
+}
 
 ###
-POST http://localhost:8080/visitors/yopaaa
+POST http://localhost:8080/visitors/yopaaas
 Content-Type: application/json
 
 {
