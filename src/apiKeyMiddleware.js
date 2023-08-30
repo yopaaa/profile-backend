@@ -1,7 +1,15 @@
 import apiKeys from '../js/config.js'
 import ResponseApi from '../js/ResponseApi.js'
+import 'dotenv/config'
+
+const { NODE_ENV } = process.env
 
 function apiKeyMiddleware(req, res, next) {
+  if (NODE_ENV === 'development') {
+    next()
+    return true
+  }
+
   const apiKey = req.query.apiKey || req.headers['x-api-key']
 
   const quotaData = apiKeys[apiKey]
