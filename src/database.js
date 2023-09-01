@@ -1,4 +1,5 @@
 import Database from '../js/dbMethod.js'
+import 'dotenv/config'
 
 const visitorsSchema = {
   _id: String,
