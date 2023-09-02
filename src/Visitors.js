@@ -41,6 +41,39 @@ visitor.get('/:user', async (req, res) => {
   ResponseApi(req, res, 400)
 })
 
+visitor.put('/:user/data', async (req, res) => {
+  const { user } = req.params
+  const { name, des, address, work, email, githubUsername } = req.body
+
+  const specificQuery = {
+    name: name || undefined,
+    des: des || undefined,
+    address: address || undefined,
+    work: work || undefined,
+    email: email || undefined,
+    githubUsername: githubUsername || undefined
+  }
+
+  Object.keys(specificQuery).forEach((key) => {
+    if (specificQuery[key] === undefined) {
+      delete specificQuery[key]
+    }
+  })
+
+  const isValid = user in users
+  const specificQueryLength = Object.keys(specificQuery).length
+  // console.log(specificQuery)
+  // console.log(specificQueryLength)
+
+  if (isValid && specificQueryLength > 0) {
+    const pw = users[user].data
+    const data = await pw.Db.updateOne({ username: user }, specificQuery)
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
 visitor.get('/:user/count', async (req, res) => {
   const { user } = req.params
   const isValid = user in users
