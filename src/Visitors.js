@@ -1,6 +1,6 @@
 import express from 'express'
 import ResponseApi from '../js/ResponseApi.js'
-import { users } from './database.js'
+import { users, usersData } from './database.js'
 import { nanoid } from 'nanoid'
 import axios from 'axios'
 import parser from 'ua-parser-js'
@@ -9,7 +9,7 @@ const visitor = express.Router()
 
 visitor.get('/:user', async (req, res) => {
   const { user } = req.params
-  const { name, des, address, work, email, githubUsername, Link, Certificate, Skills, Experience, Blog } = req.query
+  const { name, des, address, work, email, githubUsername, Link, Certificate, Skills, Experience, Blog } = req.query // get specifig data from req.query
   const specificQuery = {
     _id: 0,
     name: name === '1' ? 1 : undefined,
@@ -24,6 +24,8 @@ visitor.get('/:user', async (req, res) => {
     Experience: Experience === '1' ? 1 : undefined,
     Blog: Blog === '1' ? 1 : undefined
   }
+
+  // filter emty query
   Object.keys(specificQuery).forEach((key) => {
     if (specificQuery[key] === undefined) {
       delete specificQuery[key]
@@ -31,10 +33,10 @@ visitor.get('/:user', async (req, res) => {
   })
 
   const isValid = user in users
+  const specificQueryLength = Object.keys(specificQuery).length
 
-  if (isValid) {
-    const pw = users[user].data
-    const data = await pw.Db.find({ username: user }, specificQuery)
+  if (isValid && specificQueryLength > 1) {
+    const data = await usersData.Db.find({ username: user }, specificQuery)
     ResponseApi(req, res, 200, data)
     return
   }
@@ -62,12 +64,39 @@ visitor.put('/:user/data', async (req, res) => {
 
   const isValid = user in users
   const specificQueryLength = Object.keys(specificQuery).length
-  // console.log(specificQuery)
-  // console.log(specificQueryLength)
 
   if (isValid && specificQueryLength > 0) {
-    const pw = users[user].data
-    const data = await pw.Db.updateOne({ username: user }, specificQuery)
+    const data = await usersData.Db.updateOne({ username: user }, specificQuery)
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+visitor.put('/:user/data/Certificate', async (req, res) => {
+  const { user } = req.params
+  const { name, des, address, work, email, githubUsername } = req.body
+
+  const specificQuery = {
+    name: name || undefined,
+    des: des || undefined,
+    address: address || undefined,
+    work: work || undefined,
+    email: email || undefined,
+    githubUsername: githubUsername || undefined
+  }
+
+  Object.keys(specificQuery).forEach((key) => {
+    if (specificQuery[key] === undefined) {
+      delete specificQuery[key]
+    }
+  })
+
+  const isValid = user in users
+  const specificQueryLength = Object.keys(specificQuery).length
+
+  if (isValid && specificQueryLength > 0) {
+    const data = await usersData.Db.updateOne({ username: user }, specificQuery)
     ResponseApi(req, res, 200, data)
     return
   }
