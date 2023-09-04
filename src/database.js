@@ -159,6 +159,7 @@ const dataSchema = {
   githubUsername: String,
   Link: [
     {
+      _id: String,
       name: String,
       link: String,
       img: String
@@ -166,6 +167,7 @@ const dataSchema = {
   ],
   Certificate: [
     {
+      _id: String,
       name: String,
       title: String,
       des: String,
@@ -176,6 +178,7 @@ const dataSchema = {
   ],
   Skills: [
     {
+      _id: String,
       name: String,
       link: String,
       img: String
@@ -183,6 +186,7 @@ const dataSchema = {
   ],
   Experience: [
     {
+      _id: String,
       company: String,
       position: String,
       startDate: String,
@@ -192,6 +196,7 @@ const dataSchema = {
   ],
   Blog: [
     {
+      _id: String,
       name: String,
       title: String,
       des: String,
@@ -202,11 +207,14 @@ const dataSchema = {
   ]
 }
 
+const usersData = new Database('profile-data', dataSchema)
 const users = {
   yopaaa: {
-    visitors: new Database('visitors-yopaaa', visitorsSchema),
-    data: new Database('profile-data', dataSchema)
+    visitors: new Database('visitors-yopaaa', visitorsSchema)
+  },
+  yopaaas: {
+    visitors: new Database('visitors-yopaaas', visitorsSchema)
   }
 }
 
-export { visitorsSchema, users }
+export { visitorsSchema, users, usersData }
