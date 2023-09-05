@@ -1,20 +1,16 @@
 
-// test get full data
-###
-GET http://localhost:8080/visitors/yopaaas
-
-
 // test get data
 ###
-GET http://localhost:8080/visitors/yopaaas?name=1
+GET http://localhost:8080/visitors/yopaaas?Skills=1
 
 // test put data
 ###
-PUT http://localhost:8080/visitors/yopaaa/data
+PUT http://localhost:8080/visitors/yopaaas/data
 Content-Type: application/json
 
 {
-   "Certificate": "yopaaa"
+   "name": "yopaaas",
+   "Certificate":"yopaaa@gmail.com"
 }
 
 ###
@@ -54,13 +50,3 @@ Content-Type: application/json
 }
 
 
-###
-POST http://localhost:8080/variable/test
-Content-Type: application/json
-
-{
-"value": "ap"
-}
-
-###
-GET http://localhost:8080/variable/test
