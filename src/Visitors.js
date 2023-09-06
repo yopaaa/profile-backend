@@ -7,9 +7,10 @@ import parser from 'ua-parser-js'
 
 const visitor = express.Router()
 
-visitor.get('/:user', async (req, res) => {
+visitor.get('/:user/data', async (req, res) => {
   const { user } = req.params
-  const { name, des, address, work, email, githubUsername, Link, Certificate, Skills, Experience, Blog } = req.query // get specifig data from req.query
+  const { name, des, address, work, email, githubUsername } = req.query
+
   const specificQuery = {
     _id: 0,
     name: name === '1' ? 1 : undefined,
@@ -17,26 +18,21 @@ visitor.get('/:user', async (req, res) => {
     address: address === '1' ? 1 : undefined,
     work: work === '1' ? 1 : undefined,
     email: email === '1' ? 1 : undefined,
-    githubUsername: githubUsername === '1' ? 1 : undefined,
-    Link: Link === '1' ? 1 : undefined,
-    Certificate: Certificate === '1' ? 1 : undefined,
-    Skills: Skills === '1' ? 1 : undefined,
-    Experience: Experience === '1' ? 1 : undefined,
-    Blog: Blog === '1' ? 1 : undefined
+    githubUsername: githubUsername === '1' ? 1 : undefined
   }
+  const exclusionQuery = { Link: 0, Certificate: 0, Skills: 0, Experience: 0, Blog: 0 }
 
-  // filter emty query
   Object.keys(specificQuery).forEach((key) => {
     if (specificQuery[key] === undefined) {
       delete specificQuery[key]
     }
   })
 
+  console.log(specificQuery)
   const isValid = user in users
-  const specificQueryLength = Object.keys(specificQuery).length
 
-  if (isValid && specificQueryLength > 1) {
-    const data = await usersData.Db.find({ username: user }, specificQuery)
+  if (isValid) {
+    const data = await usersData.Db.findOne({ username: user }).select(specificQuery).select(exclusionQuery)
     ResponseApi(req, res, 200, data)
     return
   }
@@ -73,17 +69,36 @@ visitor.put('/:user/data', async (req, res) => {
   ResponseApi(req, res, 400)
 })
 
+visitor.get('/:user/data/Certificate', async (req, res) => {
+  const { user } = req.params
+  const { _id } = req.query
+
+  const isValid = user in users
+
+  if (isValid) {
+    const data = await usersData.Db.findOne({ username: user }, { _id: 0, Certificate: 1 })
+    if (_id) {
+      const findData = data.Certificate.find((val) => val._id === _id)
+      ResponseApi(req, res, 200, findData)
+    } else {
+      ResponseApi(req, res, 200, data)
+    }
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
 visitor.put('/:user/data/Certificate', async (req, res) => {
   const { user } = req.params
-  const { name, des, address, work, email, githubUsername } = req.body
+  const { name, title, des, img, date, link, _id } = req.body
 
   const specificQuery = {
-    name: name || undefined,
-    des: des || undefined,
-    address: address || undefined,
-    work: work || undefined,
-    email: email || undefined,
-    githubUsername: githubUsername || undefined
+    'Certificate.$.name': name || undefined,
+    'Certificate.$.title': title || undefined,
+    'Certificate.$.des': des || undefined,
+    'Certificate.$.img': img || undefined,
+    'Certificate.$.date': date || undefined,
+    'Certificate.$.link': link || undefined
   }
 
   Object.keys(specificQuery).forEach((key) => {
@@ -96,7 +111,12 @@ visitor.put('/:user/data/Certificate', async (req, res) => {
   const specificQueryLength = Object.keys(specificQuery).length
 
   if (isValid && specificQueryLength > 0) {
-    const data = await usersData.Db.updateOne({ username: user }, specificQuery)
+    const data = await usersData.Db.updateOne(
+      { username: user, 'Certificate._id': _id },
+      {
+        $set: specificQuery
+      }
+    )
     ResponseApi(req, res, 200, data)
     return
   }
