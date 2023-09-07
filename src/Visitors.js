@@ -123,6 +123,61 @@ visitor.put('/:user/data/Certificate', async (req, res) => {
   ResponseApi(req, res, 400)
 })
 
+visitor.get('/:user/data/Blog', async (req, res) => {
+  const { user } = req.params
+  const { _id } = req.query
+
+  const isValid = user in users
+
+  if (isValid) {
+    const data = await usersData.Db.findOne({ username: user }, { _id: 0, Blog: 1 })
+    if (_id) {
+      const findData = data.Blog.find((val) => val._id === _id)
+      ResponseApi(req, res, 200, findData)
+    } else {
+      ResponseApi(req, res, 200, data)
+    }
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+visitor.put('/:user/data/Blog', async (req, res) => {
+  const { user } = req.params
+  const { name, title, des, img, date, link, _id } = req.body
+
+  // name,title,des,img,date,link,_id
+  const specificQuery = {
+    'Blog.$.name': name || undefined,
+    'Blog.$.title': title || undefined,
+    'Blog.$.des': des || undefined,
+    'Blog.$.img': img || undefined,
+    'Blog.$.date': date || undefined,
+    'Blog.$.link': link || undefined
+  }
+
+  Object.keys(specificQuery).forEach((key) => {
+    if (specificQuery[key] === undefined) {
+      delete specificQuery[key]
+    }
+  })
+
+  const isValid = user in users
+  const specificQueryLength = Object.keys(specificQuery).length
+
+  if (isValid && specificQueryLength > 0) {
+    const data = await usersData.Db.updateOne(
+      { username: user, 'Blog._id': _id },
+      {
+        $set: specificQuery
+      }
+    )
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
 visitor.get('/:user/count', async (req, res) => {
   const { user } = req.params
   const isValid = user in users
