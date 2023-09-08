@@ -1,7 +1,11 @@
 
 // test get data
 ###
-GET http://localhost:8080/visitors/yopaaas?Skills=1
+GET http://localhost:8080/visitors/yopaaas/data
+
+// test get data
+###
+GET http://localhost:8080/visitors/yopaaas/data?name=1&des=1
 
 // test put data
 ###
@@ -49,4 +53,45 @@ Content-Type: application/json
    }
 }
 
+
+// test get Certificate
+###
+GET http://localhost:8080/visitors/yopaaas/data/Certificate
+
+
+// test get specific data Certificate
+###
+GET http://localhost:8080/visitors/yopaaas/data/Certificate?_id=650e7cb455ada597df36a8a5
+
+
+// test put data
+###
+PUT http://localhost:8080/visitors/yopaaas/data/Certificate
+Content-Type: application/json
+
+{
+   "_id": "650e7cb455ada597df36a8a5",
+   "title": "yopaaasa"
+}
+
+
+// test get Certificate
+###
+GET http://localhost:8080/visitors/yopaaas/data/Blog
+
+
+// test get specific data Blog
+###
+GET http://localhost:8080/visitors/yopaaas/data/Blog?_id=650e6a0f55ada597df36a89d
+
+
+// test put data
+###
+PUT http://localhost:8080/visitors/yopaaas/data/Blog
+Content-Type: application/json
+
+{
+   "_id": "650e6a0f55ada597df36a89d",
+   "title": "yopaaasa"
+}
 
