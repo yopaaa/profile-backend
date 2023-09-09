@@ -152,6 +152,7 @@ const visitorsSchema = {
 const dataSchema = {
   _id: String,
   name: String,
+  username: String,
   des: String,
   address: String,
   work: String,
