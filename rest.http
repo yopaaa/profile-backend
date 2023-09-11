@@ -3,6 +3,7 @@
 ###
 GET http://localhost:8080/visitors/yopaaas/data
 
+
 // test get data
 ###
 GET http://localhost:8080/visitors/yopaaas/data?name=1&des=1
@@ -58,40 +59,110 @@ Content-Type: application/json
 ###
 GET http://localhost:8080/visitors/yopaaas/data/Certificate
 
-
 // test get specific data Certificate
 ###
-GET http://localhost:8080/visitors/yopaaas/data/Certificate?_id=650e7cb455ada597df36a8a5
+GET http://localhost:8080/visitors/yopaaas/data/Certificate?_id=Qdv5k8jgzZ7PqRVchMS7w
 
-
-// test put data
+// test POST data
 ###
-PUT http://localhost:8080/visitors/yopaaas/data/Certificate
+POST http://localhost:8080/visitors/yopaaas/data/Certificate
 Content-Type: application/json
 
 {
-   "_id": "650e7cb455ada597df36a8a5",
-   "title": "yopaaasa"
+   "name": "only love",
+   "title": "only love can hurt like this",
+   "des": "This is the test.",
+   "img": "/images/bgg.webp",
+   "date": "Mei 15, 2g023",
+   "link": "/bglog"
+}
+
+// test put data
+###
+PUT http://localhost:8080/visitors/yopaaas/data/Certificate?_id=RBcIjzHO-IrsU6V7w9kwJ
+Content-Type: application/json
+
+{
+   "title": "yopaaasas"
 }
 
 
-// test get Certificate
+###
+DELETE http://localhost:8080/visitors/yopaaas/data/Certificate?_id=Qdv5k8jgzZ7PqRVchMS7w
+
+
+
+
+
+
+// test get Blog
 ###
 GET http://localhost:8080/visitors/yopaaas/data/Blog
 
 
 // test get specific data Blog
 ###
-GET http://localhost:8080/visitors/yopaaas/data/Blog?_id=650e6a0f55ada597df36a89d
+GET http://localhost:8080/visitors/yopaaas/data/Blog?_id=ReWQZfJgWWGdzOrRyFG9D
+
+// test POST data
+###
+POST http://localhost:8080/visitors/yopaaas/data/Blog
+Content-Type: application/json
+
+{
+   "name": "only love",
+   "title": "only love can hurt like this",
+   "des": "This is the test.",
+   "img": "/images/bgg.webp",
+   "date": "Mei 15, 2g023",
+   "link": "/bglog"
+}
+
+// test put data
+###
+PUT http://localhost:8080/visitors/yopaaas/data/Blog?_id=oTG0258UropwsyT-dWmyA
+Content-Type: application/json
+
+{
+   "title": "yopaaa",
+   "des": "This is the test."
+}
+
+###
+DELETE http://localhost:8080/visitors/yopaaas/data/Blog?_id=oTG0258UropwsyT-dWmyA
+
+
+// test get Experience
+###
+GET http://localhost:8080/visitors/yopaaas/data/Experience
+
+
+// test get specific data Experience
+###
+GET http://localhost:8080/visitors/yopaaas/data/Experience?_id=650e6a2d55ada597df36a89e
+
+// test POST data
+###
+POST http://localhost:8080/visitors/yopaaas/data/Experience
+Content-Type: application/json
+
+{
+    "name": "x",
+    "title": "Biznet ",
+    "des": "Internship Network Engineer at Biznet (PT. Supra Primatama Nusantara)",
+    "img": "https://images.glints.com/unsafe/glints-dashboard.s3.amazonaws.com/company-logo/2449d36946f186a2c5189d16071fdcd6.jpg",
+    "date": "May 16, 2023 - Aug 16, 2023",
+    "link": "https://www.biznetnetworks.com/?page=2%27[0]"
+  }
 
 
 // test put data
 ###
-PUT http://localhost:8080/visitors/yopaaas/data/Blog
+PUT http://localhost:8080/visitors/yopaaas/data/Experience
 Content-Type: application/json
 
 {
-   "_id": "650e6a0f55ada597df36a89d",
-   "title": "yopaaasa"
+   "_id": "650e6a2d55ada597df36a89e",
+   "name": "yopaaasaa",
+   "title": "this is title"
 }
-
