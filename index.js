@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
 import Visitors from './src/Visitors.js'
+import NGL from './src/NGL.js'
 import LogASCIIText from './js/ASCIIArt.js'
 import ResponseApi from './js/ResponseApi.js'
 import apiKeyMiddleware from './src/apiKeyMiddleware.js'
@@ -17,6 +18,7 @@ app.use(bodyParser.json())
 
 // app.use("/pw_v1", authentication, pw_v1);
 app.use('/visitors', apiKeyMiddleware, Visitors)
+app.use('/anonymous', apiKeyMiddleware, NGL)
 
 app.all('/', async (req, res) => {
   ResponseApi(req, res, 200)
