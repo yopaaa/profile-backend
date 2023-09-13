@@ -166,3 +166,15 @@ Content-Type: application/json
    "name": "yopaaasaa",
    "title": "this is title"
 }
+
+
+// test POST data
+###
+POST http://localhost:8080/anonymous/yopaaas/new
+Content-Type: application/json
+
+{
+   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+   "ipAddress": "216.239.38.120",
+   "msg": "test"
+}
