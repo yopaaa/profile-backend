@@ -328,6 +328,100 @@ visitor.put('/:user/data/Experience', async (req, res) => {
   ResponseApi(req, res, 400)
 })
 
+// ----------Link----------------
+visitor.get('/:user/data/Link', async (req, res) => {
+  const { user } = req.params
+  const { _id } = req.query
+
+  const isValid = user in users
+
+  if (isValid) {
+    const data = await usersData.Db.findOne({ username: user }, { _id: 0, Link: 1 })
+    if (_id) {
+      const findData = data.Link.find((val) => val._id === _id)
+      ResponseApi(req, res, 200, findData)
+    } else {
+      ResponseApi(req, res, 200, data)
+    }
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+visitor.post('/:user/data/Link', async (req, res) => {
+  const { user } = req.params
+  const { name, img, link } = req.body
+
+  const newData = {
+    _id: nanoid(),
+    name: name || null,
+    img: img || null,
+    link: link || null
+  }
+
+  const isValid = user in users
+  if (isValid) {
+    // console.log(newData)
+    const data = await usersData.Db.updateOne(
+      { username: user },
+      {
+        $push: { Link: newData }
+      }
+    )
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+visitor.put('/:user/data/Link', async (req, res) => {
+  const { user } = req.params
+  const { _id } = req.query
+  const { name, img, link } = req.body
+
+  const specificQuery = {
+    'Link.$.name': name || undefined,
+    'Link.$.img': img || undefined,
+    'Link.$.link': link || undefined
+  }
+
+  Object.keys(specificQuery).forEach((key) => {
+    if (specificQuery[key] === undefined) {
+      delete specificQuery[key]
+    }
+  })
+
+  const isValid = user in users
+  const specificQueryLength = Object.keys(specificQuery).length
+
+  if (isValid && specificQueryLength > 0) {
+    // console.log(specificQuery)
+    const data = await usersData.Db.updateOne(
+      { username: user, 'Link._id': _id },
+      {
+        $set: specificQuery
+      }
+    )
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+visitor.delete('/:user/data/Link', async (req, res) => {
+  const { user } = req.params
+  const { _id } = req.query
+
+  const isValid = user in users
+
+  if (isValid) {
+    const data = await usersData.Db.updateOne({ username: user }, { $pull: { Link: { _id } } })
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
 visitor.get('/:user/count', async (req, res) => {
   const { user } = req.params
   const isValid = user in users
