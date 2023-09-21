@@ -3,7 +3,6 @@
 ###
 GET http://localhost:8080/visitors/yopaaas/data
 
-
 // test get data
 ###
 GET http://localhost:8080/visitors/yopaaas/data?name=1&des=1
@@ -165,6 +164,37 @@ Content-Type: application/json
    "_id": "650e6a2d55ada597df36a89e",
    "name": "yopaaasaa",
    "title": "this is title"
+}
+
+
+// test get Link
+###
+GET http://localhost:8080/visitors/yopaaas/data/Link
+
+
+// test get specific data Link
+###
+GET http://localhost:8080/visitors/yopaaas/data/Link?_id=dOqmOWZRZc-Qcosr9bq03
+
+// test POST data
+###
+POST http://localhost:8080/visitors/yopaaas/data/Link
+Content-Type: application/json
+
+{
+   "name": "test",
+   "link": "https://github.com/yopaaa",
+   "img": "/images/icon/github.png"
+}
+
+
+// test put data
+###
+PUT http://localhost:8080/visitors/yopaaas/data/Link?_id=v3vRqMJp8AVw4-E1XKpIf
+Content-Type: application/json
+
+{
+   "name": "yopaaasaa"
 }
 
 
