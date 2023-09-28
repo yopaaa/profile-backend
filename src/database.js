@@ -338,11 +338,12 @@ const dataSchema = {
   Experience: [
     {
       _id: String,
-      company: String,
-      position: String,
-      startDate: String,
-      endDate: String,
-      description: String
+      name: String,
+      title: String,
+      des: String,
+      img: String,
+      date: String,
+      link: String
     }
   ],
   Blog: [
