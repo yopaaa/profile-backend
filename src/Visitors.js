@@ -291,9 +291,40 @@ visitor.get('/:user/data/Experience', async (req, res) => {
   ResponseApi(req, res, 400)
 })
 
+visitor.post('/:user/data/Experience', async (req, res) => {
+  const { user } = req.params
+  const { name, title, des, img, date, link } = req.body
+
+  // name,title,des,img,date,link,_id
+  const newData = {
+    _id: nanoid(),
+    name: name || null,
+    title: title || null,
+    des: des || null,
+    img: img || null,
+    date: date || null,
+    link: link || null
+  }
+
+  const isValid = user in users
+  if (isValid) {
+    // console.log(newData)
+    const data = await usersData.Db.updateOne(
+      { username: user },
+      {
+        $push: { Experience: newData }
+      }
+    )
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
 visitor.put('/:user/data/Experience', async (req, res) => {
   const { user } = req.params
-  const { name, title, des, img, date, link, _id } = req.body
+  const { name, title, des, img, date, link } = req.body
+  const { _id } = req.query
 
   // name,title,des,img,date,link,_id
   const specificQuery = {
@@ -322,6 +353,116 @@ visitor.put('/:user/data/Experience', async (req, res) => {
         $set: specificQuery
       }
     )
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+visitor.delete('/:user/data/Experience', async (req, res) => {
+  const { user } = req.params
+  const { _id } = req.query
+
+  const isValid = user in users
+
+  if (isValid) {
+    const data = await usersData.Db.updateOne({ username: user }, { $pull: { Experience: { _id } } })
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+// ----------Skills----------------
+visitor.get('/:user/data/Skills', async (req, res) => {
+  const { user } = req.params
+  const { _id } = req.query
+
+  const isValid = user in users
+
+  if (isValid) {
+    const data = await usersData.Db.findOne({ username: user }, { _id: 0, Skills: 1 })
+    if (_id) {
+      const findData = data.Skills.find((val) => val._id === _id)
+      ResponseApi(req, res, 200, findData)
+    } else {
+      ResponseApi(req, res, 200, data)
+    }
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+visitor.post('/:user/data/Skills', async (req, res) => {
+  const { user } = req.params
+  const { name, img, link } = req.body
+
+  // name,title,des,img,date,link,_id
+  const newData = {
+    _id: nanoid(),
+    name: name || null,
+    img: img || null,
+    link: link || null
+  }
+
+  const isValid = user in users
+  if (isValid) {
+    // console.log(newData)
+    const data = await usersData.Db.updateOne(
+      { username: user },
+      {
+        $push: { Skills: newData }
+      }
+    )
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+visitor.put('/:user/data/Skills', async (req, res) => {
+  const { user } = req.params
+  const { name, img, link } = req.body
+  const { _id } = req.query
+
+  // name,title,des,img,date,link,_id
+  const specificQuery = {
+    'Skills.$.name': name || undefined,
+    'Skills.$.img': img || undefined,
+    'Skills.$.link': link || undefined
+  }
+
+  Object.keys(specificQuery).forEach((key) => {
+    if (specificQuery[key] === undefined) {
+      delete specificQuery[key]
+    }
+  })
+
+  const isValid = user in users
+  const specificQueryLength = Object.keys(specificQuery).length
+
+  if (isValid && specificQueryLength > 0) {
+    console.log(specificQuery)
+    const data = await usersData.Db.updateOne(
+      { username: user, 'Skills._id': _id },
+      {
+        $set: specificQuery
+      }
+    )
+    ResponseApi(req, res, 200, data)
+    return
+  }
+  ResponseApi(req, res, 400)
+})
+
+visitor.delete('/:user/data/Skills', async (req, res) => {
+  const { user } = req.params
+  const { _id } = req.query
+
+  const isValid = user in users
+
+  if (isValid) {
+    const data = await usersData.Db.updateOne({ username: user }, { $pull: { Skills: { _id } } })
     ResponseApi(req, res, 200, data)
     return
   }
