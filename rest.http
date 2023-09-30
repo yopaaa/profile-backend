@@ -1,68 +1,31 @@
 
-// test get data
+// -----------------------/data---------------------
 ###
 GET http://localhost:8080/visitors/yopaaas/data
 
-// test get data
 ###
 GET http://localhost:8080/visitors/yopaaas/data?name=1&des=1
 
-// test put data
 ###
 PUT http://localhost:8080/visitors/yopaaas/data
 Content-Type: application/json
 
 {
-   "name": "yopaaas",
-   "Certificate":"yopaaa@gmail.com"
-}
-
-###
-POST http://localhost:8080/visitors/yopaaas
-Content-Type: application/json
-
-{
-   "ua":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-   "browser":{
-      "name":"Chrome",
-      "version":"112.0.0.0",
-      "major":"112"
-   },
-   "engine":{
-      "name":"Blink",
-      "version":"112.0.0.0"
-   },
-   "os":{
-      "name":"Linux",
-      "version":"x86_64"
-   },
-   "device":{
-      "vendor":"undefined",
-      "model":"undefined",
-      "type":"undefined"
-   },
-   "cpu":{
-      "architecture":"amd64"
-   },
-   "visitor":{
-      "ip":"::1",
-      "error":true,
-      "reason":"Reserved IP Address",
-      "reserved":true,
-      "version":"IPv6"
-   }
+   "name": "yopaaas"
 }
 
 
-// test get Certificate
+
+
+
+
+// -----------------------/data/Certificate---------------------
 ###
 GET http://localhost:8080/visitors/yopaaas/data/Certificate
 
-// test get specific data Certificate
 ###
-GET http://localhost:8080/visitors/yopaaas/data/Certificate?_id=Qdv5k8jgzZ7PqRVchMS7w
+GET http://localhost:8080/visitors/yopaaas/data/Certificate?_id=RBcIjzHO-IrsU6V7w9kwJ
 
-// test POST data
 ###
 POST http://localhost:8080/visitors/yopaaas/data/Certificate
 Content-Type: application/json
@@ -76,7 +39,6 @@ Content-Type: application/json
    "link": "/bglog"
 }
 
-// test put data
 ###
 PUT http://localhost:8080/visitors/yopaaas/data/Certificate?_id=RBcIjzHO-IrsU6V7w9kwJ
 Content-Type: application/json
@@ -84,7 +46,6 @@ Content-Type: application/json
 {
    "title": "yopaaasas"
 }
-
 
 ###
 DELETE http://localhost:8080/visitors/yopaaas/data/Certificate?_id=Qdv5k8jgzZ7PqRVchMS7w
@@ -94,16 +55,14 @@ DELETE http://localhost:8080/visitors/yopaaas/data/Certificate?_id=Qdv5k8jgzZ7Pq
 
 
 
-// test get Blog
+
+// -----------------------/data/Blog---------------------
 ###
 GET http://localhost:8080/visitors/yopaaas/data/Blog
 
-
-// test get specific data Blog
 ###
 GET http://localhost:8080/visitors/yopaaas/data/Blog?_id=ReWQZfJgWWGdzOrRyFG9D
 
-// test POST data
 ###
 POST http://localhost:8080/visitors/yopaaas/data/Blog
 Content-Type: application/json
@@ -117,7 +76,6 @@ Content-Type: application/json
    "link": "/bglog"
 }
 
-// test put data
 ###
 PUT http://localhost:8080/visitors/yopaaas/data/Blog?_id=oTG0258UropwsyT-dWmyA
 Content-Type: application/json
@@ -131,16 +89,19 @@ Content-Type: application/json
 DELETE http://localhost:8080/visitors/yopaaas/data/Blog?_id=oTG0258UropwsyT-dWmyA
 
 
-// test get Experience
+
+
+
+
+
+
+// -----------------------/data/Experience---------------------
 ###
 GET http://localhost:8080/visitors/yopaaas/data/Experience
 
-
-// test get specific data Experience
 ###
 GET http://localhost:8080/visitors/yopaaas/data/Experience?_id=650e6a2d55ada597df36a89e
 
-// test POST data
 ###
 POST http://localhost:8080/visitors/yopaaas/data/Experience
 Content-Type: application/json
@@ -157,17 +118,23 @@ Content-Type: application/json
 
 // test put data
 ###
-PUT http://localhost:8080/visitors/yopaaas/data/Experience
+PUT http://localhost:8080/visitors/yopaaas/data/Experience?_id=Ztl2go3Gd-MYhAXmy6yAy
 Content-Type: application/json
 
 {
-   "_id": "650e6a2d55ada597df36a89e",
    "name": "yopaaasaa",
    "title": "this is title"
 }
 
+###
+DELETE http://localhost:8080/visitors/yopaaas/data/Experience?_id=K2iIKHnyhu6QCTOkcSCVT
 
-// test get Link
+
+
+
+
+
+// -----------------------/data/Link---------------------
 ###
 GET http://localhost:8080/visitors/yopaaas/data/Link
 
@@ -190,12 +157,58 @@ Content-Type: application/json
 
 // test put data
 ###
-PUT http://localhost:8080/visitors/yopaaas/data/Link?_id=v3vRqMJp8AVw4-E1XKpIf
+PUT http://localhost:8080/visitors/yopaaas/data/Link?_id=CmM1Iga2VaaYRek8GrLXi
 Content-Type: application/json
 
 {
    "name": "yopaaasaa"
 }
+
+###
+DELETE http://localhost:8080/visitors/yopaaas/data/Link?_id=CmM1Iga2VaaYRek8GrLXi
+
+
+
+
+
+
+
+
+// -----------------------/data/Skills---------------------
+###
+GET http://localhost:8080/visitors/yopaaas/data/Skills
+
+###
+GET http://localhost:8080/visitors/yopaaas/data/Skills?_id=O0FdQ6ENCbXnR2fJSUB7n
+
+###
+POST http://localhost:8080/visitors/yopaaas/data/Skills
+Content-Type: application/json
+
+{
+   "name": "test",
+   "link": "https://github.com/yopaaa",
+   "img": "/images/icon/github.png"
+}
+
+###
+PUT http://localhost:8080/visitors/yopaaas/data/Skills?_id=EuJYUlqLQDkr0Kbueg7HQ
+Content-Type: application/json
+
+{
+   "name": "yopaaasaa"
+}
+
+###
+DELETE http://localhost:8080/visitors/yopaaas/data/Skills?_id=73auoeViSHpNGYEoKH0Fm
+
+
+
+
+
+
+
+
 
 
 // test POST data
